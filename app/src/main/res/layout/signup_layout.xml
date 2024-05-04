@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edFio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="FIO"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/edFio"
+        app:layout_constraintStart_toStartOf="@+id/edFio"
+        app:layout_constraintTop_toBottomOf="@+id/edFio" />
+
+    <EditText
+        android:id="@+id/edPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Policy number"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/edDate"
+        app:layout_constraintStart_toStartOf="@+id/edDate"
+        app:layout_constraintTop_toBottomOf="@+id/edDate" />
+
+    <EditText
+        android:id="@+id/edSerial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Serial number"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/edPolicy"
+        app:layout_constraintStart_toStartOf="@+id/edPolicy"
+        app:layout_constraintTop_toBottomOf="@+id/edPolicy" />
+
+    <EditText
+        android:id="@+id/edRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Place of registration"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/edSerial"
+        app:layout_constraintStart_toStartOf="@+id/edSerial"
+        app:layout_constraintTop_toBottomOf="@+id/edSerial" />
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:onClick="onClickAddUser"
+        android:text="Sign Up"
+        app:layout_constraintEnd_toEndOf="@+id/edRegistration"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/edRegistration"
+        app:layout_constraintTop_toBottomOf="@+id/edRegistration" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

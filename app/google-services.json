@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "435940101019",
+    "firebase_url": "https://polyclinic-2d4c3-default-rtdb.firebaseio.com",
+    "project_id": "polyclinic-2d4c3",
+    "storage_bucket": "polyclinic-2d4c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435940101019:android:36a04263ed8c8da164af3e",
+        "android_client_info": {
+          "package_name": "com.example.polyclinic2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfmQzpB56N9kqPAV5cSV823QVq_z2q6tI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

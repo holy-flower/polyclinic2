@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeDoc"
+        android:icon="@drawable/homedoc"
+        android:title="Главная" />
+
+    <item
+        android:id="@+id/appointments"
+        android:icon="@drawable/appointments"
+        android:title="Приемы" />
+
+    <item
+        android:id="@+id/settingsDoc"
+        android:icon="@drawable/settingsdoc"
+        android:title="Настройки" />
+</menu>

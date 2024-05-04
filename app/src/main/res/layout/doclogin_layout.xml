@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edLoginDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="text"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edPasswordDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="text"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/edLoginDoc"
+        app:layout_constraintStart_toStartOf="@+id/edLoginDoc"
+        app:layout_constraintTop_toBottomOf="@+id/edLoginDoc" />
+
+    <Button
+        android:id="@+id/buttonSignDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="196dp"
+        android:onClick="onClickDocSignUp"
+        android:text="Sign up"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/edPasswordDoc"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/edPasswordDoc"
+        app:layout_constraintTop_toBottomOf="@+id/edPasswordDoc" />
+
+    <Button
+        android:id="@+id/buttonLogDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:onClick="onClickDocLogIn"
+        android:text="Log in"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignDoc"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSignDoc"
+        app:layout_constraintStart_toStartOf="@+id/buttonSignDoc" />
+
+    <TextView
+        android:id="@+id/tvDocEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="196dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TextView" />
+
+    <Button
+        android:id="@+id/buttonStartingDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:onClick="onClickStartDoc"
+        android:text="Start"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/tvDocEmail"
+        app:layout_constraintStart_toStartOf="@+id/tvDocEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tvDocEmail" />
+
+    <Button
+        android:id="@+id/buttonSignOutDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:onClick="onClickSignOutDoc"
+        android:text="Exit"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/buttonStartingDoc"
+        app:layout_constraintStart_toStartOf="@+id/buttonStartingDoc"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStartingDoc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
