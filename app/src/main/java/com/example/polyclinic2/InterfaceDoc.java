@@ -45,7 +45,7 @@ public class InterfaceDoc extends AppCompatActivity implements UserAdapter.OnIte
                     recyclerViewUser.setLayoutManager(new LinearLayoutManager(InterfaceDoc.this));
 
                     userList = new ArrayList<>();
-                    userAdapter = new UserAdapter(userList, InterfaceDoc.this);
+                    userAdapter = new UserAdapter(userList, InterfaceDoc.this, InterfaceDoc.this);
                     recyclerViewUser.setAdapter(userAdapter);
 
                     mDatabase = FirebaseDatabase.getInstance();
@@ -54,13 +54,9 @@ public class InterfaceDoc extends AppCompatActivity implements UserAdapter.OnIte
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot != null) {
-                                userList.clear();
                                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                                    if (userSnapshot != null){
-                                        User user = userSnapshot.getValue(User.class);
-                                        User userObject = new User(user.getFio());
-                                        userList.add(userObject);
-                                    }
+                                    User user = userSnapshot.getValue(User.class);
+                                    userList.add(user);
                                 }
                                 userAdapter.notifyDataSetChanged();
                             }
@@ -84,8 +80,11 @@ public class InterfaceDoc extends AppCompatActivity implements UserAdapter.OnIte
 
     @Override
     public void onItemUserClick(User user) {
-        Intent intent = new Intent(InterfaceDoc.this, DoctorProfileActivity.class);
-        intent.putExtra("user", user);
+        String userId = user.getId();
+
+        Intent intent = new Intent(InterfaceDoc.this, UserProfileActivity.class);
+        intent.putExtra(Constant.USER_ID, userId);
+        intent.putExtra(Constant.USER, user);
         startActivity(intent);
     }
 }

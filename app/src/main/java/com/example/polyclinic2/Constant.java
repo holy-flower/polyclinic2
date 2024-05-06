@@ -9,4 +9,6 @@ public class Constant {
     public final static String DOC_PASS = "passwordDoc";
     public final static String DOCTOR_ID = "doctorId";
     public final static String DOCTOR = "doctor";
+    public final static String USER = "user";
+    public final static String USER_ID = "userId";
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvFioUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="FIO"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Date"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvFioUser"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="@+id/tvFioUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvFioUser" />
+
+    <TextView
+        android:id="@+id/tvPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Policy"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvDate"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@+id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+    <TextView
+        android:id="@+id/tvSerial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Serial"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvPolicy"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvPolicy"
+        app:layout_constraintTop_toBottomOf="@+id/tvPolicy" />
+
+    <TextView
+        android:id="@+id/tvRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Registration"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvSerial"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="@+id/tvSerial"
+        app:layout_constraintTop_toBottomOf="@+id/tvSerial" />
+</androidx.constraintlayout.widget.ConstraintLayout>

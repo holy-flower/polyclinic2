@@ -1,5 +1,7 @@
 package com.example.polyclinic2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,13 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private List<User> userList;
     private OnItemClickUserListener listenerUser;
+    private Context contextUser;
 
-    public UserAdapter(List<User> userList, OnItemClickUserListener listenerUser) {
+    public UserAdapter(List<User> userList, Context contextUser, OnItemClickUserListener listenerUser) {
 
         this.userList = userList;
         this.listenerUser = listenerUser;
+        this.contextUser = contextUser;
     }
 
     public interface OnItemClickUserListener{
@@ -39,6 +43,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(contextUser, UserProfileActivity.class);
+                intent.putExtra(Constant.USER_ID, user.getId());
+                contextUser.startActivity(intent);
+
                 listenerUser.onItemUserClick(user);
             }
         });

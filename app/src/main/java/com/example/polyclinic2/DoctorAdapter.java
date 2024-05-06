@@ -44,10 +44,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DocViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Pos", String.valueOf(position));
-                Log.i("Id doc", String.valueOf(doctor.id));
-                Log.i("Id c", String.valueOf(doctor.fioDoc));
-
                 Intent intent = new Intent(context, DoctorProfileActivity.class);
                 intent.putExtra(Constant.DOCTOR_ID, doctor.getId());
                 context.startActivity(intent);
