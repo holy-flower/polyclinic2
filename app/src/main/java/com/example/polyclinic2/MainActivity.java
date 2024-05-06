@@ -55,12 +55,9 @@ public class MainActivity extends AppCompatActivity implements DoctorAdapter.OnI
                     registeredDocsRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            docList.clear();
                             for (DataSnapshot docSnapshot : snapshot.getChildren()) {
                                 Doctor doctor = docSnapshot.getValue(Doctor.class);
-                                doctorId = doctor.getId();
-                                Doctor docObject = new Doctor(doctor.getFioDoc());
-                                docList.add(docObject);
+                                docList.add(doctor);
                             }
                             doctorAdapter.notifyDataSetChanged();
                         }
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements DoctorAdapter.OnI
 
     @Override
     public void onItemClick(Doctor doctor) {
-        //String doctorId = doctor.getId();
+        String doctorId = doctor.getId();
 
         Intent intent = new Intent(MainActivity.this, DoctorProfileActivity.class);
         intent.putExtra(Constant.DOCTOR_ID, doctorId);
