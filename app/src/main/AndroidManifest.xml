@@ -30,7 +30,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".InterfaceDoc" />
-        <activity android:name=".DoctorProfileActivity" />
         <activity android:name=".UserProfileActivity" />
     </application>
 

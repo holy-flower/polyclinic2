@@ -2,12 +2,14 @@ package com.example.polyclinic2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -43,11 +45,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(contextUser, UserProfileActivity.class);
-                intent.putExtra(Constant.USER_ID, user.getId());
-                contextUser.startActivity(intent);
+                Bundle b = new Bundle();
+                b.putString(Constant.USER_ID, user.getId());
 
-                listenerUser.onItemUserClick(user);
+                UserProfileFragment userProfileFragment = new UserProfileFragment();
+                userProfileFragment.setArguments(b);
+                ((AppCompatActivity)contextUser).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_user_list, userProfileFragment).addToBackStack(null).commit();
             }
         });
     }

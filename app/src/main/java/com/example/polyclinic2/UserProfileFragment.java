@@ -1,11 +1,14 @@
 package com.example.polyclinic2;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,22 +16,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileFragment extends Fragment {
     private TextView tvFio, tvDate, tvPolicy, tvSerial, tvRegistration;
     String userId;
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_activity);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-        tvFio = findViewById(R.id.tvFioUser);
-        tvDate = findViewById(R.id.tvDate);
-        tvPolicy = findViewById(R.id.tvPolicy);
-        tvSerial = findViewById(R.id.tvSerial);
-        tvRegistration = findViewById(R.id.tvRegistration);
+        tvFio = view.findViewById(R.id.tvFioUser);
+        tvDate = view.findViewById(R.id.tvDate);
+        tvPolicy = view.findViewById(R.id.tvPolicy);
+        tvSerial = view.findViewById(R.id.tvSerial);
+        tvRegistration = view.findViewById(R.id.tvRegistration);
 
-        userId = getIntent().getStringExtra(Constant.USER_ID);
+        Bundle bundle = getArguments();
+        userId = bundle.getString(Constant.USER_ID);
 
         FirebaseDatabase databaseUser = FirebaseDatabase.getInstance();
         DatabaseReference userRef = databaseUser.getReference("users").child(userId);
@@ -51,5 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        return view;
     }
 }
