@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,16 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DoctorAdapter.OnItemClickListener {
-
-    private RecyclerView recyclerView;
-    private DoctorAdapter doctorAdapter;
-    private List<Doctor> docList;
-
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference registeredDocsRef;
-    String doctorId;
-
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,31 +36,11 @@ public class MainActivity extends AppCompatActivity implements DoctorAdapter.OnI
                 if (menuItem.getItemId() == R.id.home) {
                     Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
 
-                    recyclerView = findViewById(R.id.recyclerView);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-                    docList = new ArrayList<>();
-                    doctorAdapter = new DoctorAdapter(docList, MainActivity.this, MainActivity.this);
-                    recyclerView.setAdapter(doctorAdapter);
-
-                    mDatabase = FirebaseDatabase.getInstance();
-                    registeredDocsRef = mDatabase.getReference("doctors");
-                    registeredDocsRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot docSnapshot : snapshot.getChildren()) {
-                                Doctor doctor = docSnapshot.getValue(Doctor.class);
-                                docList.add(doctor);
-                            }
-                            doctorAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(MainActivity.this, "Failed to load users", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                    DocListFragment docListFragment = new DocListFragment();
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.fragment_doc_list, docListFragment);
+                    ft.commit();
                     return true;
                 } else if (menuItem.getItemId() == R.id.settings) {
                     Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
@@ -76,15 +49,5 @@ public class MainActivity extends AppCompatActivity implements DoctorAdapter.OnI
                 return false;
             }
         });
-    }
-
-    @Override
-    public void onItemClick(Doctor doctor) {
-        String doctorId = doctor.getId();
-
-        Intent intent = new Intent(MainActivity.this, DoctorProfileActivity.class);
-        intent.putExtra(Constant.DOCTOR_ID, doctorId);
-        intent.putExtra(Constant.DOCTOR, doctor);
-        startActivity(intent);
     }
 }
