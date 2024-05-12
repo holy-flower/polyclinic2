@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
@@ -68,5 +69,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
             fio = itemView.findViewById(R.id.fio_list);
         }
+    }
+
+    public void setUserList(ArrayList<User> searchList) {
+        userList = searchList;
+        notifyDataSetChanged();
     }
 }

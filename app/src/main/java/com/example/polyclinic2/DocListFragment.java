@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -64,6 +66,32 @@ public class DocListFragment extends Fragment implements DoctorAdapter.OnItemCli
                 Toast.makeText(getActivity(), "Failed to load users", Toast.LENGTH_SHORT).show();
             }
         });
+
+        SearchView searchView = view.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+        Button searchButton = view.findViewById(R.id.buttonSearch);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Получаем текст из SearchView
+                String query = searchView.getQuery().toString();
+                // Обновляем список на основе введенного пользователем текста
+                filter(query);
+            }
+        });
+
         return view;
     }
 
@@ -76,5 +104,16 @@ public class DocListFragment extends Fragment implements DoctorAdapter.OnItemCli
         Bundle bundle = new Bundle();
         bundle.putString(Constant.DOCTOR_ID, doctorId);
         doctorProfileFragment.setArguments(bundle);
+    }
+
+    public void filter(String text) {
+        ArrayList<Doctor> filteredList = new ArrayList<>();
+
+        for (Doctor doctor : docList) {
+            if (doctor.getFioDoc().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(doctor);
+            }
+        }
+        doctorAdapter.searchDocList(filteredList);
     }
 }

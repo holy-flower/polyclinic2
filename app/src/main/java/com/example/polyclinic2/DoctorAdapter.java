@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DocViewHolder>{
@@ -71,5 +72,10 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DocViewHol
             super(itemView);
             fioDoc = itemView.findViewById(R.id.fio_list);
         }
+    }
+
+    public void searchDocList(ArrayList<Doctor> searchList) {
+        docList = searchList;
+        notifyDataSetChanged();
     }
 }
