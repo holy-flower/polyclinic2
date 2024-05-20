@@ -1,6 +1,8 @@
 package com.example.polyclinic2;
 
+import android.accounts.AccountManagerFuture;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,12 +27,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
+    private List<PatientRecord> patientRecords = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constant.POLICLINIC_PREFS, MODE_PRIVATE);
+
+        AppointListFragment appointListFragment = new AppointListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("patientRecords", (Serializable) patientRecords);
+        appointListFragment.setArguments(bundle);
+
+        InterfaceDoc interfaceDoc = new InterfaceDoc();
+        interfaceDoc.setAppointListFragment(appointListFragment);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

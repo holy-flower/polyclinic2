@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.reflect.KType;
+
 public class InterfaceDoc extends AppCompatActivity {
+    private AppointListFragment appointListFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +52,30 @@ public class InterfaceDoc extends AppCompatActivity {
                     Toast.makeText(InterfaceDoc.this, "Settings", Toast.LENGTH_SHORT).show();
                     return true;
                 }
+                else if (menuItem.getItemId() == R.id.appointments) {
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    FirebaseUser currentDoc = mAuth.getCurrentUser();
+
+                    if (currentDoc != null) {
+                        String doctorId = currentDoc.getUid();
+                        AppointListFragment appointListFragment = new AppointListFragment();
+
+                        Bundle args = new Bundle();
+                        args.putString(Constant.DOCTOR_ID, doctorId);
+                        appointListFragment.setArguments(args);
+                        FragmentManager fm = getSupportFragmentManager();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.replace(R.id.fragment_user_list, appointListFragment);
+                        ft.commit();
+                    }
+                    return true;
+                }
                 return false;
             }
         });
+    }
+
+    public void setAppointListFragment(AppointListFragment appointListFragment) {
+        this.appointListFragment = appointListFragment;
     }
 }

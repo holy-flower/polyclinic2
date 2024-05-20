@@ -11,4 +11,6 @@ public class Constant {
     public final static String DOCTOR = "doctor";
     public final static String USER = "user";
     public final static String USER_ID = "userId";
+    public final static String POLICLINIC_PREFS = "PoliclinicPrefs";
+    public final static String USER_ID_KEY = "userKey";
 }
