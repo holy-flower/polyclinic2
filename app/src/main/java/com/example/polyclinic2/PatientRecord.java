@@ -15,6 +15,9 @@ public class PatientRecord {
     private String registeredDate;
     private String registeredTime;
 
+    public PatientRecord() {
+    }
+
     public PatientRecord(String userId, String doctorId, String name, String registeredDate, String registeredTime) {
         this.userId = userId;
         this.doctorId = doctorId;

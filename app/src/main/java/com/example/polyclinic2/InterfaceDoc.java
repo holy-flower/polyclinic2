@@ -61,7 +61,7 @@ public class InterfaceDoc extends AppCompatActivity {
                         AppointListFragment appointListFragment = new AppointListFragment();
 
                         Bundle args = new Bundle();
-                        args.putString(Constant.DOCTOR_ID, doctorId);
+                        args.putString("123", doctorId);
                         appointListFragment.setArguments(args);
                         FragmentManager fm = getSupportFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();

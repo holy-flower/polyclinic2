@@ -31,7 +31,7 @@ android {
 
 dependencies {
 
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation ("androidx.databinding:databinding-runtime:7.0.0")
     implementation(libs.preference)
     annotationProcessor ("androidx.databinding:databinding-compiler:7.0.0")

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,56 +46,35 @@ public class AppointListFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            docIntId = bundle.getString(Constant.DOCTOR_ID);
+            docIntId = bundle.getString("123");
         }
 
         FirebaseDatabase databasePatient = FirebaseDatabase.getInstance();
-        DatabaseReference patientRef = databasePatient.getReference("patientRecords");
+        DatabaseReference patientRef = databasePatient.getReference("appointments");
+
+        Log.d("docID", docIntId);
 
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //patientRecords.clear();
+                patientRecords.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     PatientRecord patientRecord = dataSnapshot.getValue(PatientRecord.class);
+                    Log.d("patientRecord", "tutttttt");
                     if (patientRecord.getDoctorId().equals(docIntId)) {
                         patientRecords.add(patientRecord);
                     }
-                    patientRecords.add(patientRecord);
+                    //patientRecords.add(patientRecord);
                 }
                 patientRecordAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                System.err.println("Listener was cancelled: " + error.getCode());
             }
         });
 
         return view;
     }
 }
-
-/*
-docId = requireArguments().getString(Constant.DOCTOR_ID);
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patientRecords");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                patientRecords.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    PatientRecord patientRecord = dataSnapshot.getValue(PatientRecord.class);
-                    if (patientRecord.getDoctorId().equals(docId)) {
-                        patientRecords.add(patientRecord);
-                    }
-                }
-                patientRecordAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
- */

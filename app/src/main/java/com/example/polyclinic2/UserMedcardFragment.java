@@ -1,5 +1,7 @@
 package com.example.polyclinic2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserMedcardFragment extends Fragment {
 
-    private TextView FioUs, DateUs, PolicyUs, SerialUs, RegistrationUs;
+    private TextView FioUs, DateUs, PolicyUs, SerialUs, RegistrationUs, textNote;
     String userId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +33,7 @@ public class UserMedcardFragment extends Fragment {
         PolicyUs = view.findViewById(R.id.textViewPolicy);
         SerialUs = view.findViewById(R.id.textViewSerial);
         RegistrationUs = view.findViewById(R.id.textViewRegistration);
+        textNote = view.findViewById(R.id.savedTextNode);
 
         Bundle bundle = getArguments();
         if(bundle != null) {
@@ -50,6 +53,10 @@ public class UserMedcardFragment extends Fragment {
                     PolicyUs.setText(user.getPolicy());
                     SerialUs.setText(user.getSerial());
                     RegistrationUs.setText(user.getPlace());
+
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+                    String savedText = sharedPreferences.getString("note", "");
+                    textNote.setText(savedText);
                 }
             }
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,29 +130,37 @@ public class RegistrationFragment extends Fragment {
                 pat.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
-                        userName = user.getFio();
+                        if (snapshot.exists()){
+                            Log.e("database", "прошел");
+                            User user = snapshot.getValue(User.class);
+                            userName = user.getFio();
 
-                        AppointListFragment appointListFragment = new AppointListFragment();
+                            Log.d("имя", userName);
 
-                        String appointmentTime = timeVar.getText().toString();
-                        String appointmentDate = dateVar.getText().toString();
-                        DatabaseReference appointmentsRef = database.getReference("appointments");
+                            AppointListFragment appointListFragment = new AppointListFragment();
 
-                        PatientRecord newPatient = new PatientRecord(docId, userName, appointmentDate, appointmentTime);
-                        appointmentsRef.child(userId).child(appointmentDate + " " + appointmentTime).setValue(newPatient);
+                            String appointmentTime = timeVar.getText().toString();
+                            String appointmentDate = dateVar.getText().toString();
+                            DatabaseReference appointmentsRef = database.getReference("appointments");
 
-                        FragmentManager fm = getFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.replace(R.id.fragment_doc_list, appointListFragment);
-                        ft.commit();
+                            PatientRecord newPatient = new PatientRecord(docId, userName, appointmentDate, appointmentTime);
+                            appointmentsRef.child(userId).child(appointmentDate + " " + appointmentTime).setValue(newPatient);
 
-                        Toast.makeText(getActivity(), "Регистрация прошла", Toast.LENGTH_LONG).show();
+                            FragmentManager fm = getFragmentManager();
+                            FragmentTransaction ft = fm.beginTransaction();
+                            ft.replace(R.id.fragment_doc_list, appointListFragment);
+                            ft.commit();
+
+                            Toast.makeText(getActivity(), "Регистрация прошла", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Log.e("database", "не прошел");
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        throw error.toException();
                     }
                 });
             }
