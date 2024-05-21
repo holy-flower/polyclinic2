@@ -60,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
                     ft.commit();
                     return true;
                 } else if (menuItem.getItemId() == R.id.settings) {
+                    SettingsFragment settingsFragment = new SettingsFragment();
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.fragment_doc_list, settingsFragment);
+                    ft.commit();
+
                     Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                     return true;
                 }

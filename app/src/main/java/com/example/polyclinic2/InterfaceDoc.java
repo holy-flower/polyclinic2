@@ -50,6 +50,13 @@ public class InterfaceDoc extends AppCompatActivity {
                     return true;
                 } else if (menuItem.getItemId() == R.id.settingsDoc) {
                     Toast.makeText(InterfaceDoc.this, "Settings", Toast.LENGTH_SHORT).show();
+
+                    SettingsDocFragment settingsDocFragment = new SettingsDocFragment();
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.fragment_user_list, settingsDocFragment);
+                    ft.commit();
+
                     return true;
                 }
                 else if (menuItem.getItemId() == R.id.appointments) {
