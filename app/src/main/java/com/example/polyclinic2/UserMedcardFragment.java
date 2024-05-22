@@ -55,7 +55,7 @@ public class UserMedcardFragment extends Fragment {
                     RegistrationUs.setText(user.getPlace());
 
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
-                    String savedText = sharedPreferences.getString("note", "");
+                    String savedText = sharedPreferences.getString(userId, "");
                     textNote.setText(savedText);
                 }
             }

@@ -63,7 +63,7 @@ public class UserProfileFragment extends Fragment {
 
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
-                            myEdit.putString("note", noteText);
+                            myEdit.putString(userId, noteText);
                             myEdit.commit();
 
                             Toast.makeText(getActivity(), "Изменения сохранены", Toast.LENGTH_SHORT).show();
