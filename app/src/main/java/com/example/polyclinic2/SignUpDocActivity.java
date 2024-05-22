@@ -51,39 +51,62 @@ public class SignUpDocActivity extends AppCompatActivity {
     }
 
     public void onClickAddDoc(View view){
-        String id = mAuth.getCurrentUser().getUid(); // Используйте UID текущего пользователя в качестве идентификатора
+        int pola = 0;
+        String id = mAuth.getCurrentUser().getUid();
         String fioDoc = edFioDoc.getText().toString();
+        String[] words = fioDoc.split(" ");
+        if (words.length == 3) {
+            pola += 1;
+        }
+        else {
+            Toast.makeText(this, "Необходимо ввести все значения", Toast.LENGTH_SHORT).show();
+        }
         String license = edLicense.getText().toString();
+        String pattern = "^Л\\d{3}-\\d{5}-\\d{2}/\\d{8}$";
+        if (license.matches(pattern)) {
+            pola += 1;
+        }
+        else {
+            Toast.makeText(this, "Номер лицензии не правильно введен", Toast.LENGTH_SHORT).show();
+        }
         String specialization = edSpecialization.getText().toString();
         String phone = edPhone.getText().toString();
-
-        if (!TextUtils.isEmpty(emailDoc) && !TextUtils.isEmpty(passDoc) &&
-                !TextUtils.isEmpty(fioDoc) && !TextUtils.isEmpty(license) &&
-                !TextUtils.isEmpty(specialization) && !TextUtils.isEmpty(phone)) {
-            mAuth.signInWithEmailAndPassword(emailDoc, passDoc).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    Doctor newDoc = new Doctor(id, fioDoc, license, specialization, phone);
-
-                    mDataBase.child(id).setValue(newDoc).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Intent intent = new Intent(SignUpDocActivity.this, LogInDocActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(SignUpDocActivity.this, "Данные пользователя успешно сохранены", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SignUpDocActivity.this, "Ошибка при сохранении данных" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    Toast.makeText(SignUpDocActivity.this, "saved", Toast.LENGTH_LONG).show();
-                }
-            });
+        if (phone.matches("^\\+7\\s\\d{3}\\s\\d{3}-\\d{2}-\\d{2}$")) {
+            pola += 1;
         }
-        else{
-            Toast.makeText(this, "Please enter all margins", Toast.LENGTH_LONG).show();
+        else {
+            Toast.makeText(this, "Номер телефона не правильно введен", Toast.LENGTH_SHORT).show();
+        }
+
+        if (pola == 3) {
+            if (!TextUtils.isEmpty(emailDoc) && !TextUtils.isEmpty(passDoc) &&
+                    !TextUtils.isEmpty(fioDoc) && !TextUtils.isEmpty(license) &&
+                    !TextUtils.isEmpty(specialization) && !TextUtils.isEmpty(phone)) {
+                mAuth.signInWithEmailAndPassword(emailDoc, passDoc).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Doctor newDoc = new Doctor(id, fioDoc, license, specialization, phone);
+
+                        mDataBase.child(id).setValue(newDoc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Intent intent = new Intent(SignUpDocActivity.this, LogInDocActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(SignUpDocActivity.this, "Данные пользователя успешно сохранены", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SignUpDocActivity.this, "Ошибка при сохранении данных" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        Toast.makeText(SignUpDocActivity.this, "saved", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            else{
+                Toast.makeText(this, "Please enter all margins", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

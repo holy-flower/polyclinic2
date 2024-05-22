@@ -1,5 +1,6 @@
 package com.example.polyclinic2;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,6 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.util.Date;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -55,40 +59,69 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void onClickAddUser(View view){
-        String id = mAuth.getCurrentUser().getUid(); // Используйте UID текущего пользователя в качестве идентификатора
+        int pola = 0;
+        String id = mAuth.getCurrentUser().getUid();
         String fio = edFio.getText().toString();
+        String[] words = fio.split(" ");
+        if (words.length == 3) {
+            pola += 1;
+        }
+        else {
+            Toast.makeText(this, "Необходимо ввести все значения", Toast.LENGTH_SHORT).show();
+        }
         String date = edDate.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            Date datePr = sdf.parse(date);
+            pola += 1;
+        } catch (ParseException e){
+            Toast.makeText(this, "Введите дату рождения в формате дд.мм.гггг", Toast.LENGTH_SHORT).show();
+        }
         String policy = edPolicy.getText().toString();
+        if (policy.matches("\\d{16}")) {
+            pola += 1;
+        }
+        else {
+            Toast.makeText(this, "Ошибка в веденном полисе", Toast.LENGTH_SHORT).show();
+        }
         String serial = edSerial.getText().toString();
+        if (serial.matches("\\d{2} \\d{2} \\d{6}")) {
+            pola += 1;
+        }
+        else {
+            Toast.makeText(this, "Ошибка в веденных паспортных данных", Toast.LENGTH_SHORT).show();
+        }
         String place = edPlace.getText().toString();
 
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) &&
-                !TextUtils.isEmpty(fio) && !TextUtils.isEmpty(date) && !TextUtils.isEmpty(policy) &&
-                !TextUtils.isEmpty(serial) && !TextUtils.isEmpty(place)) {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    User newUser = new User(id, fio, date, policy, serial, place);
+        if (pola == 4) {
+            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) &&
+                    !TextUtils.isEmpty(fio) && !TextUtils.isEmpty(date) && !TextUtils.isEmpty(policy) &&
+                    !TextUtils.isEmpty(serial) && !TextUtils.isEmpty(place)) {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        User newUser = new User(id, fio, date, policy, serial, place);
 
-                    mDataBase.child(id).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(SignUpActivity.this, "Данные пользователя успешно сохранены", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SignUpActivity.this, "Ошибка при сохранении данных" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    Toast.makeText(SignUpActivity.this, "saved", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-        else{
-            Toast.makeText(this, "Please enter all margins", Toast.LENGTH_LONG).show();
+                        mDataBase.child(id).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(SignUpActivity.this, "Данные пользователя успешно сохранены", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SignUpActivity.this, "Ошибка при сохранении данных" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        Toast.makeText(SignUpActivity.this, "saved", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            else{
+                Toast.makeText(this, "Please enter all margins", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
