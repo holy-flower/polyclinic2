@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +38,7 @@ public class AppointListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_appoint_list, container, false);
 
+        /*
         rvPatientRecords = view.findViewById(R.id.rvAppointments);
         rvPatientRecords.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -74,6 +76,7 @@ public class AppointListFragment extends Fragment {
                 System.err.println("Listener was cancelled: " + error.getCode());
             }
         });
+         */
 
         return view;
     }
