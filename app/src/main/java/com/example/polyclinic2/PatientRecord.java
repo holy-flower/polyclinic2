@@ -82,4 +82,15 @@ public class PatientRecord {
     public String getRegisteredDate() {
         return registeredDate;
     }
+
+    @Override
+    public String toString() {
+        return "PatientRecord{" +
+                "userId='" + userId + '\'' +
+                ", doctorId='" + doctorId + '\'' +
+                ", name='" + name + '\'' +
+                ", registeredDate='" + registeredDate + '\'' +
+                ", registeredTime='" + registeredTime + '\'' +
+                '}';
+    }
 }

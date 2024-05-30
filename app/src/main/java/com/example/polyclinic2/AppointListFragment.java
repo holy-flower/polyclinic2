@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AppointListFragment extends Fragment {
     private RecyclerView rvPatientRecords;
@@ -38,7 +39,7 @@ public class AppointListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_appoint_list, container, false);
 
-        /*
+
         rvPatientRecords = view.findViewById(R.id.rvAppointments);
         rvPatientRecords.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -60,15 +61,23 @@ public class AppointListFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 patientRecords.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    PatientRecord patientRecord = dataSnapshot.getValue(PatientRecord.class);
-                    Log.d("patientRecord", "tutttttt");
-                    if (patientRecord.getDoctorId().equals(docIntId)) {
-                        patientRecords.add(patientRecord);
+                if(snapshot.exists()) {
+                    Log.d("patientRecord","val="+snapshot.getChildrenCount());
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        for(DataSnapshot date: dataSnapshot.getChildren()) {
+                            PatientRecord patientRecord = date.getValue(PatientRecord.class);
+                            Log.d("patientRecord", "tutttttt");
+                            Log.d("patientRecord", patientRecord.toString());
+                            if (patientRecord.getDoctorId().equals(docIntId)) {
+                                patientRecords.add(patientRecord);
+                            }
+                        }
                     }
-                    //patientRecords.add(patientRecord);
+                    patientRecordAdapter.notifyDataSetChanged();
+                    Log.d("patientRecord", "patientRecords: " + patientRecords);
+                } else {
+                    Log.d("patientRecord","!!!");
                 }
-                patientRecordAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -76,7 +85,7 @@ public class AppointListFragment extends Fragment {
                 System.err.println("Listener was cancelled: " + error.getCode());
             }
         });
-         */
+
 
         return view;
     }

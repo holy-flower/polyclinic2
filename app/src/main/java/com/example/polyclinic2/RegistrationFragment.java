@@ -146,12 +146,12 @@ public class RegistrationFragment extends Fragment {
                             PatientRecord newPatient = new PatientRecord(docId, userName, appointmentDate, appointmentTime);
                             appointmentsRef.child(userId).child(appointmentDate + " " + appointmentTime).setValue(newPatient);
 
-                            /*
+
                             FragmentManager fm = getFragmentManager();
                             FragmentTransaction ft = fm.beginTransaction();
                             ft.replace(R.id.fragment_doc_list, appointListFragment);
                             ft.commit();
-                             */
+
 
                             Toast.makeText(getActivity(), "Регистрация прошла", Toast.LENGTH_LONG).show();
                         }

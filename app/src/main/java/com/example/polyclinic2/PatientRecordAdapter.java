@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ public class PatientRecordAdapter extends RecyclerView.Adapter<PatientRecordAdap
             mNameTextView = itemView.findViewById(R.id.fio_user_list);
             mRegisteredTimeTextView = itemView.findViewById(R.id.time_list);
             mRegisteredDateTextView = itemView.findViewById(R.id.date_list);
+            Log.d("patientRecord", "patientRecords in onBindViewHolder: " + mPatientRecords);
         }
     }
 
