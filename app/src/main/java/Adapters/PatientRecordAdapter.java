@@ -1,4 +1,4 @@
-package com.example.polyclinic2;
+package Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.TextView;
 import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.polyclinic2.PatientRecord;
+import com.example.polyclinic2.R;
 
 import java.util.ArrayList;
 

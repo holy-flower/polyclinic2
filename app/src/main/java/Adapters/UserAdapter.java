@@ -1,7 +1,6 @@
-package com.example.polyclinic2;
+package Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.polyclinic2.Constant;
+import com.example.polyclinic2.R;
+import com.example.polyclinic2.User;
+import com.example.polyclinic2.UserProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;

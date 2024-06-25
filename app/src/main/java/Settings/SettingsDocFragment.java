@@ -1,4 +1,4 @@
-package com.example.polyclinic2;
+package Settings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import Registration.LoginActivity;
+import com.example.polyclinic2.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsDocFragment extends Fragment {

@@ -19,7 +19,7 @@
             android:name=".PatientRecord"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name="Registration.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,10 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpDocActivity" />
-        <activity android:name=".LogInDocActivity" />
+        <activity android:name="Registration.SignUpDocActivity" />
+        <activity android:name="Registration.LogInDocActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name="Registration.SignUpActivity" />
         <activity android:name=".InterfaceDoc" />
     </application>
 

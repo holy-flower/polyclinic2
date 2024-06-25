@@ -1,4 +1,4 @@
-package com.example.polyclinic2;
+package Lists;
 
 import android.os.Bundle;
 
@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.example.polyclinic2.PatientRecord;
+import Adapters.PatientRecordAdapter;
+import com.example.polyclinic2.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AppointListFragment extends Fragment {
     private RecyclerView rvPatientRecords;

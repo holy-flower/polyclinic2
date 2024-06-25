@@ -1,6 +1,5 @@
-package com.example.polyclinic2;
+package Lists;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,11 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.polyclinic2.Constant;
+import com.example.polyclinic2.Doctor;
+import Adapters.DoctorAdapter;
+import com.example.polyclinic2.DoctorProfileFragment;
+import com.example.polyclinic2.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,38 +28,39 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserListFragment extends Fragment implements UserAdapter.OnItemClickUserListener {
-    private RecyclerView recyclerViewUser;
-    private UserAdapter userAdapter;
-    private List<User> userList;
+public class DocListFragment extends Fragment implements DoctorAdapter.OnItemClickListener {
+    private RecyclerView recyclerView;
+    private DoctorAdapter doctorAdapter;
+    private List<Doctor> docList;
 
     private FirebaseDatabase mDatabase;
-    private DatabaseReference registeredUsersRef;
+    private DatabaseReference registeredDocsRef;
+    String doctorId;
+    private Bundle bundle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_user_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_doc_list, container, false);
 
-        recyclerViewUser = view.findViewById(R.id.recyclerViewDoc);
-        recyclerViewUser.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        userList = new ArrayList<>();
-        userAdapter = new UserAdapter(userList, getActivity(), this);
-        recyclerViewUser.setAdapter(userAdapter);
+        docList = new ArrayList<>();
+        doctorAdapter = new DoctorAdapter(docList, getActivity(), this, bundle);
+        recyclerView.setAdapter(doctorAdapter);
 
         mDatabase = FirebaseDatabase.getInstance();
-        registeredUsersRef = mDatabase.getReference("users");
-        registeredUsersRef.addValueEventListener(new ValueEventListener() {
+        registeredDocsRef = mDatabase.getReference("doctors");
+        registeredDocsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot != null) {
-                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                        User user = userSnapshot.getValue(User.class);
-                        userList.add(user);
-                    }
-                    userAdapter.notifyDataSetChanged();
+                for (DataSnapshot docSnapshot : snapshot.getChildren()) {
+                    Doctor doctor = docSnapshot.getValue(Doctor.class);
+                    docList.add(doctor);
                 }
+                doctorAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -64,7 +69,7 @@ public class UserListFragment extends Fragment implements UserAdapter.OnItemClic
             }
         });
 
-        SearchView searchView = view.findViewById(R.id.searchUserView);
+        SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -78,7 +83,7 @@ public class UserListFragment extends Fragment implements UserAdapter.OnItemClic
             }
         });
 
-        Button searchButton = view.findViewById(R.id.searchUsers);
+        Button searchButton = view.findViewById(R.id.buttonSearch);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,24 +98,24 @@ public class UserListFragment extends Fragment implements UserAdapter.OnItemClic
     }
 
     @Override
-    public void onItemUserClick(User user) {
-        String userId = user.getId();
+    public void onItemClick(Doctor doctor) {
+        String doctorId = doctor.getId();
 
-        UserProfileFragment userProfileFragment = new UserProfileFragment();
+        DoctorProfileFragment doctorProfileFragment = new DoctorProfileFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Constant.USER_ID, userId);
-        userProfileFragment.setArguments(bundle);
+        bundle.putString(Constant.DOCTOR_ID, doctorId);
+        doctorProfileFragment.setArguments(bundle);
     }
 
     public void filter(String text) {
-        ArrayList<User> filteredList = new ArrayList<>();
+        ArrayList<Doctor> filteredList = new ArrayList<>();
 
-        for (User user : userList) {
-            if (user.getFio().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(user);
+        for (Doctor doctor : docList) {
+            if (doctor.getFioDoc().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(doctor);
             }
         }
-        userAdapter.setUserList(filteredList);
+        doctorAdapter.searchDocList(filteredList);
     }
 }
